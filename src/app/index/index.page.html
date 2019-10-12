@@ -4,13 +4,13 @@
       <!-------------LOGIN------------->
       <ng-template [ngIf]="tabActive == 'login'">
         <ion-item>
-          <ion-input [(ngModel)]="user.email" inputmode="email" placeholder="Seu email"></ion-input>
+          <ion-input [(ngModel)]="user.email" (keyup.enter)="login()" inputmode="email" placeholder="Seu email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input [(ngModel)]="user.password" placeholder="Sua senha" type="password"></ion-input>
+          <ion-input [(ngModel)]="user.password" (keyup.enter)="login()" placeholder="Sua senha" type="password"></ion-input>
         </ion-item>
         <!-- enter/register -->
-        <ion-button expand="block">Entrar</ion-button>
+        <ion-button expand="block" (click)="login()">Entrar</ion-button>
         <ion-button expand="block" fill="clear" (click)="tabActive = 'register'"><small>Não tem uma conta? <b>Cadastre-se aqui</b></small></ion-button>
       </ng-template>
       <!-------------REGISTER------------->

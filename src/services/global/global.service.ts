@@ -14,7 +14,6 @@ export class GlobalService {
     return true;
   }
   get(key) {
-    console.log(this.date[key]);
     return this.date[key];
   }
 }

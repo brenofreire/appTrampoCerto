@@ -46,12 +46,14 @@ export class AppComponent {
     });
   }
   async verifyUserSession() {
-    let user = await this.storage.get('tc_user');
+    let user = await this.storage.get('tc_user');    
     if (!user) {
       let login = await this.modalCtrl.create({
         component: IndexPage,
         backdropDismiss: false,
       }); login.present();
+    } else {
+      console.log('tá logado', user.name);      
     }
   }
 }

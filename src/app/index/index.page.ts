@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/services/global/global.service';
 import { ApiService } from 'src/services/api/api.service';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -24,15 +26,29 @@ export class IndexPage implements OnInit {
     private api: ApiService,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
+    private storage: Storage,
+    private modalCtrl: ModalController,
+    private router: Router,
   ) {
-    setTimeout(() => {
       let usr = this.global.get('tc_user');
-      console.log(usr);
-    }, 3000);
   }
 
   ngOnInit() {
 
+  }
+  async login(){
+    if(!this.validateForm(true)) return false;
+    let loader = await this.loadingCtrl.create({ message: 'Entrando...'});
+    loader.present();
+    this.api.post('/login', this.user).then(result => {
+      this.global.set('tc_user', result['user']);
+      this.storage.set('tc_user', result['user']);
+      this.storage.set('tc_token', result['token']);
+      this.modalCtrl.dismiss();
+      this.showToast('Usuário logado com sucesso!');      
+    }).catch(err => {
+      this.showToast(err['message']);
+    }).finally(() => loader.dismiss());
   }
   async register() {
     if(!this.validateForm()) return false;
@@ -53,9 +69,9 @@ export class IndexPage implements OnInit {
       duration: 3000,
     }); toast.present();
   }
-  validateForm(){
-    if(this.user.name.length < 4) {
-      this.showToast('O usuário deve ter ao menos 4 caracteres');
+  validateForm(login?){
+    if(!login && (this.user.name.length < 4)) {
+      this.showToast('O nome deve ter ao menos 4 caracteres');
       return false;
     }
     if(this.user.email.length < 8) {
