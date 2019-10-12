@@ -1,9 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>index</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <main>
+    <section class="form">
+      <!-------------LOGIN------------->
+      <ng-template [ngIf]="tabActive == 'login'">
+        <ion-item>
+          <ion-input [(ngModel)]="user.email" inputmode="email" placeholder="Seu email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="user.password" placeholder="Sua senha" type="password"></ion-input>
+        </ion-item>
+        <!-- enter/register -->
+        <ion-button expand="block">Entrar</ion-button>
+        <ion-button expand="block" fill="clear" (click)="tabActive = 'register'"><small>Não tem uma conta? <b>Cadastre-se aqui</b></small></ion-button>
+      </ng-template>
+      <!-------------REGISTER------------->
+      <ng-template [ngIf]="tabActive == 'register'">
+        <!-- back to login -->
+        <ion-button fill="clear" (click)="tabActive = 'login'">
+          <ion-icon slot="start" name="arrow-back"></ion-icon>
+          <small>Voltar para Login</small>
+        </ion-button>
+        <!-- form -->
+        <ion-item>
+          <ion-input [(ngModel)]="user.name" inputmode="text" placeholder="Seu nome"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="user.email" inputmode="email" placeholder="Seu email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="user.password" placeholder="Sua senha" type="password"></ion-input>
+        </ion-item>
+        <!-- register as prof -->
+        <ion-item lines="none">
+          <ion-label>Cadastrar como profissional?</ion-label>
+          <ion-checkbox [(ngModel)]="user.type"></ion-checkbox>
+        </ion-item>
+        <small *ngIf="user.type"><p>Isso significa que você quer trabalhar usando o aplicativo!</p></small>
+        <!-- register -->
+        <ion-button expand="block" (click)="register()">Cadastrar</ion-button>
+      </ng-template>
+    </section>
+  </main>
 </ion-content>
