@@ -20,11 +20,6 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
   ];
 
   constructor(
@@ -47,13 +42,15 @@ export class AppComponent {
   }
   async verifyUserSession() {
     let user = await this.storage.get('tc_user');    
+    let token = await this.storage.get('tc_token');    
     if (!user) {
       let login = await this.modalCtrl.create({
         component: IndexPage,
         backdropDismiss: false,
       }); login.present();
     } else {
-      console.log('tá logado', user.name);      
+      this.global.set('tc_user', user);
+      this.global.set('tc_token', token);
     }
   }
 }

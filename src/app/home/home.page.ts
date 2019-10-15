@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from 'src/services/api/api.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  constructor() {}
-
+  public services = []; 
+  public loading = true;
+  public search = {
+    value: '',
+    type: '',
+  };
+  constructor(
+    private api: ApiService,
+  ) { }
+  ionViewDidEnter() {
+    this.searchServices();
+  }
+  searchServices() {
+    this.api.get(`/v1/trampo/search?searchValue=${this.search.value}&serviceType=${this.search.type}`).then(res => {
+      this.services = res['services'];
+      this.loading = false;
+    }).catch(() => { }).finally(() => this.loading = false);
+  }
 }
