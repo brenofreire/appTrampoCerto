@@ -1,34 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Homer
-    </ion-title>
+    <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <!-- loader -->
-  <div class="loader" *ngIf="loading">
-    <ion-spinner></ion-spinner>
-  </div>
-  <div class="main" *ngIf="!loading && services.length">
-    <!-- search bar -->
-    <ion-searchbar [(ngModel)]="search.value"></ion-searchbar>
-    <!-- service list -->
-    <ng-template ngFor let-service [ngForOf]="services">
-      {{ service.title }}
-    </ng-template>
-  </div>
-  <!-- empty list card -->
-  <ion-card *ngIf="!loading && !services.length">
-    <ion-card-header>
-      Ops! Nenhum serviço disponível ainda!
-    </ion-card-header>
-    <ion-card-content>
-      <p>Divulgue para seus amigos para o TrampoCerto bombar na sua área!</p>
-      <ion-button>Compartilhar</ion-button>
-    </ion-card-content>
-  </ion-card>
+<ion-content>  
 </ion-content>

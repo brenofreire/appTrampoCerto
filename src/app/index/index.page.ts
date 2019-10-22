@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/services/global/global.service';
 import { ApiService } from 'src/services/api/api.service';
-import { ToastController, LoadingController, ModalController } from '@ionic/angular';
+import { ToastController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -29,12 +29,13 @@ export class IndexPage implements OnInit {
     private storage: Storage,
     private modalCtrl: ModalController,
     private router: Router,
+    private navCtrl: NavController,
   ) {
       let usr = this.global.get('tc_user');
   }
 
   ngOnInit() {
-
+    if(this.global.get('tc_token')) this.navCtrl.navigateRoot('/home');
   }
   async login(){
     if(!this.validateForm(true)) return false;
@@ -46,6 +47,7 @@ export class IndexPage implements OnInit {
       this.storage.set('tc_token', result['token']);
       this.modalCtrl.dismiss();
       this.showToast('Usuário logado com sucesso!');      
+      this.navCtrl.navigateRoot('/home');
     }).catch(err => {
       this.showToast(err['message']);
     }).finally(() => loader.dismiss());

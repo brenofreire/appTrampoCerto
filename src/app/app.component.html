@@ -7,13 +7,16 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+        <!-- sidemenu -->
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
+          <ion-menu-toggle auto-hide="true" *ngFor="let link of appPages">
+            <ion-item 
+              [routerDirection]="'root'" 
+              [routerLink]="link.handler ? '' : [link.url]"
+              (click)="link.handler ? link.handler() : ''"
+              lines="none">
+              <ion-icon slot="start" [name]="link.icon"></ion-icon>
+              <ion-label> {{link.title}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
