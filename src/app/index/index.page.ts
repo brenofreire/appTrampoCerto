@@ -38,19 +38,17 @@ export class IndexPage implements OnInit {
     if(this.global.get('tc_token')) this.navCtrl.navigateRoot('/home');
   }
   async login(){
-    if(!this.validateForm(true)) return false;
-    let loader = await this.loadingCtrl.create({ message: 'Entrando...'});
-    loader.present();
-    this.api.post('/login', this.user).then(result => {
-      this.global.set('tc_user', result['user']);
-      this.storage.set('tc_user', result['user']);
-      this.storage.set('tc_token', result['token']);
+    if(this.validateForm(true) !== true) return false;
+    let loader = await this.loadingCtrl.create({ message: 'Entrando...'}); loader.present();
+    this.api.login(this.user).then(() => {
       this.modalCtrl.dismiss();
       this.showToast('Usuário logado com sucesso!');      
       this.navCtrl.navigateRoot('/home');
+      loader.dismiss();
     }).catch(err => {
       this.showToast(err['message']);
-    }).finally(() => loader.dismiss());
+      loader.dismiss();
+    });
   }
   async register() {
     if(!this.validateForm()) return false;
@@ -72,18 +70,9 @@ export class IndexPage implements OnInit {
     }); toast.present();
   }
   validateForm(login?){
-    if(!login && (this.user.name.length < 4)) {
-      this.showToast('O nome deve ter ao menos 4 caracteres');
-      return false;
-    }
-    if(this.user.email.length < 8) {
-      this.showToast('Email inválido');
-      return false;
-    }
-    if(this.user.password.length < 8) {
-      this.showToast('A senha deve ter ao menos 8 carecteres');
-      return false;
-    }
-    return true;
+    if(!login && (this.user.name.length < 4)) return this.showToast('O nome deve ter ao menos 4 caracteres');
+    else if(this.user.email.length < 8) return this.showToast('Email inválido');
+    else if(this.user.password.length < 8) return this.showToast('A senha deve ter ao menos 8 carecteres');
+    else return true;
   }
 }

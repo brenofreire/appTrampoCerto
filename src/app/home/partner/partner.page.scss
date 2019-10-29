@@ -1,0 +1,15 @@
+.main {
+    .title, .subtitle, .capitalize {
+        display: block;
+    }
+    .title {
+        font-size: 20px;        
+    }
+    .capitalize {
+        text-transform: capitalize;
+    }
+    .buttons {
+        display: grid;        
+        grid-template-columns: 70% 30%;
+    }
+}

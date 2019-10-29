@@ -14,11 +14,22 @@
   </div>
   <div class="main" *ngIf="!loading && services.length">
     <!-- search bar -->
-    <ion-searchbar [(ngModel)]="search.value"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="search.value" (ionChange)="searchServices()"></ion-searchbar>
     <!-- service list -->
-    <ng-template ngFor let-service [ngForOf]="services">
-      {{ service.title }}
-    </ng-template>
+    <ion-card *ngFor="let service of services">
+      <ion-card-header>
+        <span class="title">{{ service.title }}</span>
+        <small><i>Solicitado por</i>&nbsp;<b>{{ service.client_name }}</b></small>
+        <span class="capitalize">{{ service.type }}</span>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ service.description || 'Sem descrição'}}</p>
+        <div class="buttons" no-padding>
+          <ion-button expand="block" (click)="acceptService(service.id)">Aceitar</ion-button>
+          <ion-button expand="block" (click)="ignore(service)" color="danger">Ignorar</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
   </div>
   <!-- empty list card -->
   <ion-card *ngIf="!loading && !services.length">
