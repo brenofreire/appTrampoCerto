@@ -63,17 +63,13 @@ export class ApiService {
   }
   relogar() {
     return new Promise(async response => {
-      console.log('logar', {
-        email: this.global.get('tc_user')['email'],
-        password: await this.storage.get('tc_password'),
-      });
       this.login({
         email: this.global.get('tc_user')['email'],
         password: atob(await this.storage.get('tc_password')),
       }).then(() => response(true)).catch(() => response(false));
     })
   }
-  login(user: User) {
+  login(user: User):Promise<any> {
     return new Promise((res, error) => {
       this.post('/login', user).then(result => {
         res(this.setCredenciais(result, user));

@@ -12,7 +12,8 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   { path: 'index', loadChildren: './index/index.module#IndexPageModule' },
-  { path: 'partner', loadChildren: './home/partner/partner.module#PartnerPageModule' }
+  { path: 'partner', loadChildren: './home/partner/partner.module#PartnerPageModule' },
+  { path: 'client', loadChildren: './home/client/client.module#ClientPageModule' }
 ];
 
 @NgModule({

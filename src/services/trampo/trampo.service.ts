@@ -9,7 +9,25 @@ export class TrampoService {
   constructor(
     private api: ApiService,
   ) { }
-  async changeServiceStatus(status: string, id_service: number){
+  /**
+   * @description Role == partner
+   * @param status Tipo para qual vai mudar o serviço
+   * @param id_service Id do serviço que vai ser alterado
+   */
+  async changeServiceStatus(status: string, id_service: number): Promise<any> {
     return await this.api.get(`v1/trampo/${status}/${id_service}`);
+  }
+  /**
+   * @param service Informações sobre serviço: titulo, categoria e id_user
+   * @returns Situação da criação do serviço
+   */
+  async initializeService(service: {}): Promise<any> {
+    return await this.api.post('/create', service);
+  }
+  /**
+   * @returns Tipos de serviços(categorias) cadastrados no banco
+   */
+  async getServicesTypes() {
+    return await this.api.get('/services_types');
   }
 }

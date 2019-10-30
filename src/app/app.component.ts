@@ -9,6 +9,7 @@ import { IndexPage } from './index/index.page';
 import { HomePage } from './home/home.page';
 import { UserService } from 'src/services/user/user.service';
 import { Routes, Router } from '@angular/router';
+import { TrampoService } from 'src/services/trampo/trampo.service';
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,7 @@ export class AppComponent {
     private alertCtrl: AlertController,
     private userServ: UserService,
     private router: Router,
+    private trampoServ: TrampoService
   ) {
     this.initializeApp();
   }
@@ -61,7 +63,8 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      await this.verifyUserSession();      
+      await this.verifyUserSession();
+      await this.getServicesTypes();      
     });
   }
   async verifyUserSession() {
@@ -78,5 +81,9 @@ export class AppComponent {
       this.appPages.unshift(<any> await this.userServ.createsHomeList());
       this.router.navigateByUrl(<any> await this.userServ.createsHomeRoute());
     }
+  }
+  async getServicesTypes(){
+    let serviceTypes = await this.trampoServ.getServicesTypes();
+    this.storage.set('service_types', serviceTypes);
   }
 }
