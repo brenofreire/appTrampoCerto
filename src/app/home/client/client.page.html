@@ -6,30 +6,13 @@
     <ion-title>Solicitar Serviço</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <h1>
-        <ion-icon slot="start" name="bulb"></ion-icon>
-        Aqui você solicitar
-      </h1>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed, fugiat odio. Omnis expedita explicabo aliquid
-        facilis minus odio atque, inventore quidem, beatae dicta illum fuga repellat fugiat ea, ex numquam!</p>
-    </ion-card-content>
-  </ion-card>
+  <card-info [hide]="services.length"></card-info>
+  <service-item [services]="services" [hasButton]="true"></service-item>
 </ion-content>
+
 <ion-footer>
-  <ion-card padding no-margin>
-    <ion-input class="main-input" [(ngModel)]="service.title" placeholder="No que precisa de ajuda?"></ion-input>
-    <ion-item>
-      <ion-label>Categoria</ion-label>
-      <ion-select [(ngModel)]="service.type" placeholder="Selecionar" okText="Selecionar"
-        cancelText="Cancelar">
-        <ion-select-option *ngFor="let service of services_types" [value]="service.type">{{ service.type.toUpperCase() }}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-button expand="block" (click)="initializeService()">Solcitar</ion-button>
-  </ion-card>
+  <service-form [showForm]="services.length" [services_types]="services_types"
+    (initializeService)="initializeService($event)"></service-form>
 </ion-footer>

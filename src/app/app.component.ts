@@ -19,30 +19,7 @@ import { TrampoService } from 'src/services/trampo/trampo.service';
 export class AppComponent {
   private token;
   private user;
-  public appPages = [
-    {
-      title: 'Sair',
-      url: '',
-      icon: 'exit',
-      handler: async () => {
-        let alert = await this.alertCtrl.create({
-          header: 'Deseja realmente sair?',
-          subHeader: 'Nós vamos sentir sua falta :(',
-          buttons: ['Cancelar', {
-            text: 'Sair',
-            handler: async () => {
-              this.storage.set('tc_user', null);
-              this.storage.set('tc_token', null);
-              let login = await this.modalCtrl.create({
-                component: IndexPage,
-                backdropDismiss: false,
-              }); login.present();
-            }
-          }]
-        }); alert.present();
-      }
-    }
-  ];
+  public appPages = [];
 
   constructor(
     private platform: Platform,
@@ -54,7 +31,7 @@ export class AppComponent {
     private alertCtrl: AlertController,
     private userServ: UserService,
     private router: Router,
-    private trampoServ: TrampoService
+    private trampoServ: TrampoService,
   ) {
     this.initializeApp();
   }
@@ -85,5 +62,22 @@ export class AppComponent {
   async getServicesTypes(){
     let serviceTypes = await this.trampoServ.getServicesTypes();
     this.storage.set('service_types', serviceTypes);
+  }
+  async logout(){
+    let alert = await this.alertCtrl.create({
+      header: 'Deseja realmente sair?',
+      subHeader: 'Nós vamos sentir sua falta :(',
+      buttons: ['Cancelar', {
+        text: 'Sair',
+        handler: async () => {
+          this.storage.set('tc_user', null);
+          this.storage.set('tc_token', null);
+          let login = await this.modalCtrl.create({
+            component: IndexPage,
+            backdropDismiss: false,
+          }); login.present();
+        }
+      }]
+    }); alert.present();
   }
 }

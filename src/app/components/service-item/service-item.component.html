@@ -1,0 +1,12 @@
+<section [class.has-button]="hasButton" *ngIf="services.length"> 
+  <div *ngFor="let service of services" class="service-content" padding>
+    <h1>{{ service.title }}</h1>
+    <div>
+      <span>{{ service.type }}</span>
+      <span>{{ service.status }}</span>
+    </div>
+  </div>
+  <button class="service-button" *ngIf="hasButton">
+    <ion-icon name="more"></ion-icon>
+  </button>
+</section>

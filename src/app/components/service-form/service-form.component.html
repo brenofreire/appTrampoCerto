@@ -1,0 +1,17 @@
+<ion-card padding no-margin>
+  <ng-template [ngIf]="showForm">
+    <h1>Você tem um chamado em aberto.</h1>
+    <p>Estamos procurando um profissional pra você</p>
+  </ng-template>
+  <ng-template [ngIf]="!showForm">
+    <ion-input class="main-input" [(ngModel)]="service.title" placeholder="No que precisa de ajuda?"></ion-input>
+    <ion-item>
+      <ion-label>Categoria</ion-label>
+      <ion-select [(ngModel)]="service.type" placeholder="Selecionar" okText="Selecionar" cancelText="Cancelar">
+        <ion-select-option *ngFor="let service of services_types" [value]="service.type">
+          {{ service.type.toUpperCase() }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" (click)="initializeService()">Solcitar</ion-button>
+  </ng-template>
+</ion-card>

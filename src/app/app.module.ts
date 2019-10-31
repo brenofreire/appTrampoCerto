@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IndexPageModule } from './index/index.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageModule } from './home/home.module';
+import { ComponentsModule } from './components/components.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { HomePageModule } from './home/home.module';
     IonicStorageModule.forRoot(),
     IndexPageModule,
     HomePageModule,
-    HttpClientModule 
+    HttpClientModule,
+    ComponentsModule, 
   ],
   providers: [
     StatusBar,

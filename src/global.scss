@@ -26,6 +26,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
+@import './theme/theme.scss';
+
 * {
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
@@ -48,4 +50,7 @@
 }
 h1 {
     margin: 0;
+}
+span {
+    font-size: $font-regular;
 }

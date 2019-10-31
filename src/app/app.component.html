@@ -9,16 +9,15 @@
       <ion-content>
         <!-- sidemenu -->
         <ion-list>
-          <ion-menu-toggle auto-hide="true" *ngFor="let link of appPages">
-            <ion-item 
-              [routerDirection]="'root'" 
-              [routerLink]="link.handler ? '' : [link.url]"
-              (click)="link.handler ? link.handler() : ''"
-              lines="none">
-              <ion-icon slot="start" [name]="link.icon"></ion-icon>
-              <ion-label> {{link.title}}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+          <ion-item *ngFor="let link of appPages" [routerDirection]="'root'"
+            [routerLink]="link.handler ? '' : [link.url]" (click)="link.handler ? link.handler() : ''" lines="none">
+            <ion-icon slot="start" [name]="link.icon"></ion-icon>
+            <ion-label> {{link.title}}</ion-label>
+          </ion-item>
+          <ion-item lines="none" (click)="logout()">
+            <ion-icon name="exit" slot="start"></ion-icon>
+            Sair
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>

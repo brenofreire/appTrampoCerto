@@ -1,0 +1,35 @@
+@import "../../../theme/theme.scss";
+
+section {
+  background: #fff;
+  &.has-button {
+    display: flex;
+    .service-content {
+      flex: 1 0 90%;
+    }
+    .service-button {
+      padding: 0;
+      flex: 1 0 5%;
+      margin: 0;
+      font-size: 26px;
+      background: #cee4da;
+      color: $color-primary;
+    }
+  }
+  h1 {
+    font-size: $font-regular;
+    color: $color-primary;
+    font-weight: 600;
+  }
+  div {
+    div {
+      display: flex;
+      flex-wrap: wrap;
+      span {
+        flex: 1 0 calc(100% / 3);
+        color: $color-grey;
+        display: block;
+      }
+    }
+  }
+}

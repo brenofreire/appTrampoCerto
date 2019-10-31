@@ -8,11 +8,7 @@ import { TrampoService } from 'src/services/trampo/trampo.service';
   styleUrls: ['./client.page.scss'],
 })
 export class ClientPage implements OnInit {
-  private service = {
-    title: '',
-    type: '',
-    id_user: null,
-  }
+  public services: Array<object> = [];  
   private services_types: Array<object>;
   constructor(
     private global: GlobalService,
@@ -20,22 +16,28 @@ export class ClientPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.services_types = <any> await this.trampoServ.getServicesTypes();
+    this.services_types = <any> await this.trampoServ.getServicesTypes();    
   }
   /**
    * Abre/inicia um serviço
    */
-  initializeService(): void {
-    console.log(this.validateService());    
+  initializeService(service: {}): void {    
+    console.log(this.validateService(service));
+    service = this.validateService(service);
+    this.services.push({
+      title: service['title'],
+      type: service['type'],
+      status: 'initialized',      
+    });    
     // this.trampoServ.initializeService(this.validateService());
   }
   /**
    * @returns Serviço validado e pronto pra fazer a request
    */
-  validateService(): object {
+  validateService(service): object {
     return {
-      title: this.service.title,
-      type: this.service.type,
+      title: service.title,
+      type: service.type,
       id_user: this.global.get('tc_user')['id']
     }
   }    
