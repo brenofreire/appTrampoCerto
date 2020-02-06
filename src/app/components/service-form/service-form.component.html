@@ -4,7 +4,7 @@
     <p>Estamos procurando um profissional pra você</p>
   </ng-template>
   <ng-template [ngIf]="!showForm">
-    <ion-input class="main-input" [(ngModel)]="service.title" placeholder="No que precisa de ajuda?"></ion-input>
+    <ion-input class="main-input" [(ngModel)]="service.title" placeholder="Escreva uma breve descrição"></ion-input>
     <ion-item>
       <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="service.type" placeholder="Selecionar" okText="Selecionar" cancelText="Cancelar">

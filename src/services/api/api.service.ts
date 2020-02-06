@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Storage } from '@ionic/storage';
 import { GlobalService } from '../global/global.service';
+import { UserService } from '../user/user.service';
 
 interface User {
   email: string,
@@ -23,6 +24,7 @@ export class ApiService {
     private http: HttpClient,
     private storage: Storage,
     private global: GlobalService,
+    private userService: UserService,
   ) { }
 
   get(url_dinamica) {
@@ -71,8 +73,9 @@ export class ApiService {
   }
   login(user: User):Promise<any> {
     return new Promise((res, error) => {
-      this.post('/login', user).then(result => {
-        res(this.setCredenciais(result, user));
+      this.post('/login', user).then((result: any) => {
+        this.setCredenciais(result, user);
+        res(result.user.type);
       }).catch(err => error(err));
     })
   }
@@ -82,5 +85,6 @@ export class ApiService {
     this.storage.set('tc_user', result['user']);
     this.storage.set('tc_token', result['token']);
     this.storage.set('tc_password', btoa(user.password));
+    this.userService.createsHomeList();
   }
 }

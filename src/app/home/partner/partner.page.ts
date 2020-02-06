@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/services/api/api.service';
 import { GlobalService } from 'src/services/global/global.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, Events } from '@ionic/angular';
 import { TrampoService } from 'src/services/trampo/trampo.service';
 
 @Component({
@@ -18,10 +18,9 @@ export class PartnerPage implements OnInit {
   };
   constructor(
     private api: ApiService,
-    private global: GlobalService,
-    private navCtrl: NavController,
     private trampoServ: TrampoService,
     private loaderCtrl: LoadingController,
+    private events: Events,
   ) { }
   ngOnInit() {
     this.searchServices();
