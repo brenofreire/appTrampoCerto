@@ -21,15 +21,8 @@ export class ClientPage implements OnInit {
   /**
    * Abre/inicia um serviço
    */
-  initializeService(service: {}): void {    
-    console.log(this.validateService(service));
-    service = this.validateService(service);
-    this.services.push({
-      title: service['title'],
-      type: service['type'],
-      status: 'initialized',      
-    });    
-    // this.trampoServ.initializeService(this.validateService());
+  initializeService(service: {}): void { 
+    this.trampoServ.initializeService(this.validateService(service));
   }
   /**
    * @returns Serviço validado e pronto pra fazer a request

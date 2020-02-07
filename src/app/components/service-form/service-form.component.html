@@ -12,6 +12,6 @@
           {{ service.type.toUpperCase() }}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button expand="block" (click)="initializeService()">Solcitar</ion-button>
+    <ion-button expand="block" [disabled]="!service.title.length || !service.type.length" (click)="initializeService()">Solcitar</ion-button>
   </ng-template>
 </ion-card>

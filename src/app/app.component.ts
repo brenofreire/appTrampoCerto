@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, ModalController, AlertController, NavController } from '@ionic/angular';
+import { Platform, ModalController, AlertController, NavController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
@@ -32,8 +32,10 @@ export class AppComponent {
     private userServ: UserService,
     private router: Router,
     private trampoServ: TrampoService,
+    private evetns: Events,
   ) {
     this.initializeApp();
+    this.evetns.subscribe("ev_createsHomeList", async () => await this.createsHomeList());
   }
 
   initializeApp() {
@@ -55,10 +57,14 @@ export class AppComponent {
     } else {
       this.global.set('tc_user', this.user);
       this.global.set('tc_token', this.token);
-      this.appPages.unshift(<any> await this.userServ.createsHomeList());
+      this.createsHomeList();
       this.router.navigateByUrl(<any> await this.userServ.createsHomeRoute());
     }
   }
+  async createsHomeList(){
+    this.appPages = [];
+    this.appPages.push(<any> await this.userServ.createsHomeList());
+  } 
   async getServicesTypes(){
     let serviceTypes = await this.trampoServ.getServicesTypes();
     this.storage.set('service_types', serviceTypes);

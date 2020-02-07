@@ -39,13 +39,13 @@ export class IndexPage implements OnInit {
   async login(){
     if(this.validateForm(true) !== true) return false;
     let loader = await this.loadingCtrl.create({ message: 'Entrando...'}); loader.present();
-    this.api.login(this.user).then((url: string) => {      
+    this.api.login(this.user).then((url: string) => {    
       this.modalCtrl.dismiss();
       this.showToast('Usuário logado com sucesso!');  
       this.navCtrl.navigateRoot(url)
       loader.dismiss();
     }).catch(err => {
-      this.showToast(err['message']);
+      this.showToast('Usuário ou senha inválidos');
       loader.dismiss();
     });
   }
