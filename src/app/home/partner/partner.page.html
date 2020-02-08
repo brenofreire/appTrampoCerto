@@ -15,6 +15,8 @@
   <div class="main" *ngIf="!loading && services.length">
     <!-- search bar -->
     <ion-searchbar [(ngModel)]="search.value" (ionChange)="searchServices()"></ion-searchbar>
+    <!-- warning -->
+    <div padding><small>Ao clicar em entrar em contato, o serviço selecionado será redirecionado para a sessão "Chat com clientes" do menu lateral.</small></div>
     <!-- service list -->
     <ion-card *ngFor="let service of services">
       <ion-card-header>
@@ -23,11 +25,7 @@
         <span class="capitalize">{{ service.type }}</span>
       </ion-card-header>
       <ion-card-content>
-        <p>{{ service.description || 'Sem descrição'}}</p>
-        <div class="buttons" no-padding>
-          <ion-button expand="block" (click)="acceptService(service.id)">Aceitar</ion-button>
-          <ion-button expand="block" (click)="ignore(service)" color="danger">Ignorar</ion-button>
-        </div>
+        <ion-button expand="block" (click)="acceptService(service.id)">Entrar em contato</ion-button>        
       </ion-card-content>
     </ion-card>
   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/services/api/api.service';
 import { GlobalService } from 'src/services/global/global.service';
-import { NavController, LoadingController, Events } from '@ionic/angular';
+import { NavController, LoadingController, Events, AlertController } from '@ionic/angular';
 import { TrampoService } from 'src/services/trampo/trampo.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class PartnerPage implements OnInit {
     private api: ApiService,
     private trampoServ: TrampoService,
     private loaderCtrl: LoadingController,
+    private alertCtrl: AlertController,
     private events: Events,
   ) { }
   ngOnInit() {
@@ -33,11 +34,20 @@ export class PartnerPage implements OnInit {
     }).catch(() => { }).finally(() => this.loading = false);
   }
   async acceptService(id_service: number){
-    let loader = await this.loaderCtrl.create({message: 'Aceitando serviço...'});
-    loader.present();
-    this.trampoServ.changeServiceStatus('accepted', id_service).then(() => {
-      loader.dismiss();
-      console.log(status);
-    });
+    let alert = await this.alertCtrl.create({
+      header: 'Atenção',
+      subHeader: `Ao clicar em "entar em contato", você iniciará um chat com o cliente.`,
+      message: 'Deseja confirmar ação?',
+      buttons: ['Cancelar', {
+        text: 'Entrar em contato',
+        handler: async () => {
+          let loader = await this.loaderCtrl.create({message: 'Iniciando chat com o cliente...'});
+          loader.present();        
+          this.trampoServ.changeServiceStatus('accepted', id_service)
+          .then(() => {})
+          .finally(() => loader.dismiss());
+        }
+      }]
+    }); alert.present();
   }
 }

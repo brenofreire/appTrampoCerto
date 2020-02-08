@@ -23,10 +23,7 @@ export class TrampoService {
    */
   async initializeService(service: {}): Promise<any> {
     try { return await this.api.post('/v1/trampo/create', service); }
-    catch(e) {
-      console.log(e);
-      
-    }
+    catch(e) { console.log(e); }
   }
   /**
    * @returns Tipos de serviços(categorias) cadastrados no banco

@@ -63,7 +63,7 @@ export class AppComponent {
   }
   async createsHomeList(){
     this.appPages = [];
-    this.appPages.push(<any> await this.userServ.createsHomeList());
+    this.appPages = this.appPages.concat(<any> await this.userServ.createsHomeList());
   } 
   async getServicesTypes(){
     let serviceTypes = await this.trampoServ.getServicesTypes();
